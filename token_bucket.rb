@@ -3,7 +3,7 @@ require 'debug'
 include Eddorre::SimpleSpec
 using Eddorre::TerminalColors
 
-class TokenBucket
+class TokenBucketRateLimiter
   REFILL_RATE_PER_SECOND = 5
 
   attr_reader :identifier, :capacity, :refill_rate, :started, :tokens
@@ -55,7 +55,7 @@ class TokenBucket
 end
 
 
-bucket = TokenBucket.new(identifier: '192.168.1.1', capacity: 20)
+bucket = TokenBucketRateLimiter.new(identifier: '192.168.1.1', capacity: 20)
 
 test 'it should have a capacity of 20' do
   expect(bucket.capacity).to eq(20)
@@ -80,7 +80,7 @@ test 'it should not allow if stopped' do
   expect(bucket.allow?).not_to be_truthy
 end
 
-test_bucket = TokenBucket.new(identifier: '192.168.1.1', capacity: 20)
+test_bucket = TokenBucketRateLimiter.new(identifier: '192.168.1.1', capacity: 20)
 test_bucket.start
 
 clock = 0
