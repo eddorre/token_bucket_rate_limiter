@@ -17,12 +17,10 @@ class TokenBucket
     @started = false
     @tokens = @capacity
     @thread = nil
-    @start_time = nil
   end
 
   def start
     @started = true
-    @start_time = Time.now
 
     begin
       @thread = Thread.new do
@@ -53,14 +51,6 @@ class TokenBucket
 
     @tokens -= 1
     true
-  end
-
-  private
-
-  def elapsed_time
-    return 0 unless @start_time
-
-    Time.now - @start_time
   end
 end
 
