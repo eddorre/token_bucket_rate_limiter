@@ -26,11 +26,11 @@ class TokenBucket
       @thread = Thread.new do
         while @started do
           sleep(1)
-          if elapsed_time > refill_rate
-            if tokens <= capacity
-              max_tokens = capacity - tokens
-              @tokens += ([(refill_rate * (elapsed_time / refill_rate)), max_tokens].min).floor
-            end
+          if tokens < capacity
+            max_tokens = capacity - tokens
+            tokens_to_refill = [refill_rate, max_tokens].min
+            puts "\r\nBUCKET WITH #{tokens} EXISTING TOKENS BEING REFILLED WITH #{tokens_to_refill} MORE TOKENS"
+            @tokens += tokens_to_refill
           end
         end
       end
