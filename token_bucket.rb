@@ -1,6 +1,7 @@
 require '~/.ruby_tools/simple_spec.rb'
 require 'debug'
 include Eddorre::SimpleSpec
+using Eddorre::TerminalColors
 
 class TokenBucket
   REFILL_RATE_PER_SECOND = 5
