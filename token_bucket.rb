@@ -83,23 +83,23 @@ end
 test_bucket = TokenBucket.new(identifier: '192.168.1.1', capacity: 20)
 test_bucket.start
 
-counter = 0
+clock = 0
 max_run_time = 60 # in seconds
-request = 0
 
-while counter < max_run_time do
-  number_of_requests = rand(30)
-  puts "SENDING #{number_of_requests} REQUESTS"
-  number_of_requests.times do
+while clock < max_run_time do
+  number_of_requests = rand(1..30)
+  puts "\r\nSENDING #{number_of_requests} REQUESTS"
+  number_of_requests.times do |request|
     request += 1
-    allowed = test_bucket.allow?
-    if allowed
-      puts "REQUEST #{request} ALLOWED. NUMBER OF TOKENS #{test_bucket.tokens}."
+    if test_bucket.allow?
+      puts "REQUEST #{request} #{'ALLOWED'.green}. NUMBER OF TOKENS REMAINING #{test_bucket.tokens}."
     else
-      puts "REQUEST #{request} DENIED. NUMBER OF TOKENS #{test_bucket.tokens}."
+      puts "REQUEST #{request} #{'DENIED'.red}. NO MORE TOKENS REMAINING."
     end
   end
   
-  time_to_sleep = sleep(rand(4))
-  counter += time_to_sleep
+  time_to_sleep = sleep(rand(1..4))
+  clock += time_to_sleep
 end
+
+test_bucket.stop
