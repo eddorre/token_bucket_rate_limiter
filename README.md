@@ -8,3 +8,7 @@ Tokens are tracked only in memory. In a production setting these would likely be
 ruby token_bucket_rate_limiter.rb
 
 ```
+Example run:
+
+![token_bucket_rate_limiter](https://github.com/user-attachments/assets/2ad383cd-8a83-476d-9a71-c4c1208610f6)
+
